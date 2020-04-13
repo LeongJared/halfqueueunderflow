@@ -20,8 +20,7 @@
       #my_dataviz {
       width: 100%;
       text-align: center;
-      color: #ffffff;
-      background-color: #5a5a5a
+      background-color: #a6a6a6
       }
     </style>
 		<title>Yo</title>
@@ -125,10 +124,10 @@
       <script>
 
       // set the dimensions and margins of the graph
-      var margin = {top: 30, right: 30, bottom: 30, left: 30},
+      var margin = {top: 100, right: 100, bottom: 100, left: 100},
         //width = 450 - margin.left - margin.right,
-        width = 500 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        width = 1100 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
 
       // append the svg object to the body of the page
       var svg = d3.select("#my_dataviz")
@@ -140,8 +139,12 @@
               "translate(" + margin.left + "," + margin.top + ")");
 
       // Labels of row and columns
-      var myGroups = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-      var myVars = ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "v9", "v10"]
+      var myGroups = ["danceability", "energy", "key", "loudness", "mode",
+      "speechiness", "acousticness", "instrumentalness", "liveness", "valence",
+      "tempo", "target"]
+      var myVars = ["danceability", "energy", "key", "loudness", "mode",
+      "speechiness", "acousticness", "instrumentalness", "liveness", "valence",
+      "tempo", "target"]
 
       //myGroups = "<span style='color:#ffffff'>myGroups</span>";
 
@@ -164,12 +167,12 @@
 
       // Build color scale
       var myColor = d3.scaleLinear()
-        .range(["white", "#69b3a2"])
+        .range(["white", "#003366"])
         .domain([1,100])
 
 
       //Read the data
-      d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/heatmap_data.csv", function(data) {
+      d3.csv("https://raw.githubusercontent.com/Kmooyang/halfqueueunderflow/master/musicFrom2010sNoArtists.csv", function(data) {
 
         // create a tooltip
         var tooltip = d3.select("#my_dataviz")
