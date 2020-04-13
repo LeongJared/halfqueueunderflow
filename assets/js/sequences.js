@@ -303,4 +303,3 @@ function buildHierarchy(csv) {
   }
   return root;
 };
-LICENSE
