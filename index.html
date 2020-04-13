@@ -62,12 +62,12 @@
 			  roundStrokes: true,
 			  color: color,
 			  axisName: "reason",
-			  areaName: "device",
+			  areaName: "year",
 			  value: "value"
 			};
 
 			//Load the data and Call function to draw the Radar chart
-			d3.json("spotifyPlaylist.json", function(error, data){
+			d3.json("spotifyHit.json", function(error, data){
 				RadarChart(".radarChart", data, radarChartOptions);
 			});
 			
