@@ -21,8 +21,8 @@ function RadarChart(id, data, options) {
 	 strokeWidth: 2, 			//The width of the stroke around each blob
 	 roundStrokes: false,			//If true the area and stroke will follow a round path (cardinal-closed)
 	 color: d3.scale.category10(),		//Color function
-	 axisName: "key",
-	 areaName:"year",
+	 axisName: "axis",
+	 areaName:"areaName",
 	 value: "value",
 	 sortAreas: true,
 	};
@@ -36,8 +36,8 @@ function RadarChart(id, data, options) {
 
 	//Map the fields specified in the configuration 
 	// to the axis and value variables
-	var axisName = cfg["key"],
-			areaName = cfg["year"],
+	var axisName = cfg["axisName"],
+			areaName = cfg["areaName"],
 			value = cfg["value"];
 
 	//Calculate the average value for each area
