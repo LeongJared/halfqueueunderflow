@@ -1,178 +1,31 @@
 <!DOCTYPE html>
-<meta charset="utf-8" />
-<style>
-.axis {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 12px;
-}
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #ccc;
-  shape-rendering: crispEdges;
-}
-.axis.y line {
-  stroke-dasharray: 2,4
-}
-.label {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  fill: #aaa;
-}
-path.domain {
-  stroke: none;
-}
-.bubble {
-  stroke: white;
-  fill-opacity: 0.75;
-}
-.tooltip {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff;
-  pointer-events: none;
-  position: absolute;
-}
-</style> 
-<body>
-<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
-
-<script type="text/javascript">
-var margin = { top: 30, right: 10, bottom: 20, left: 20 },
-  width = 960 - margin.left - margin.right,
-  height = 500 - margin.top - margin.bottom
-
-var svg = d3.select("body").append("svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-
-var tooltip = d3.select("body").append("div")   
-  .attr("class", "tooltip")
-
-var x = d3.scaleLog()
-  .range([0, width])
-
-var y = d3.scaleLinear()
-  .range([height, 0])
-
-var color = d3.scaleOrdinal()
-  .domain(["Sub-Saharan Africa", "South Asia", "Middle East & North Africa", "America", "Europe & Central Asia", "East Asia & Pacific"])
-  .range(["#66c2a5","#fc8d62","#8da0cb","#e78ac3","#a6d854","#ffd92f"])
-
-var radius = d3.scaleSqrt()
-  .range([2, 80])
-
-var xAxis = d3.axisBottom()
-  .scale(x)
-  .ticks(5, d3.format(",d"))
-
-var yAxis = d3.axisLeft()
-  .scale(y)
-  .tickSize(-width)
-
-svg.append("text")
-  .attr("class", "x label")
-  .attr("text-anchor", "end")
-  .attr("x", width)
-  .attr("y", height - 6)
-  .text("Income per capita, inflation-adjusted (dollars)");
-
-svg.append("text")
-  .attr("class", "y label")
-  .attr("text-anchor", "start")
-  .attr("y", 6)
-  .attr("dy", ".75em")
-  .text("Life expectancy (years)");
-
-d3.csv("data.csv", type, function (error, data) {
-  if (error) throw error
-
-  data.sort(function(a, b) { return b.population - a.population })
-
-  x.domain(d3.extent(data, function(d) { return d.income }))
-  y.domain(d3.extent(data, function(d) { return d.health }))
-  radius.domain(d3.extent(data, function(d) { return d.population }))
-
-  svg.append("g")
-    .attr("class", "axis x")
-    .attr("transform", "translate(" + 0 + "," + height + ")")
-    .call(xAxis)
-
-  svg.append("g")
-    .attr("class", "axis y")
-    .call(yAxis)
-
-  svg.append("g")
-    .attr("class", "bubbles")
-    .selectAll("circle")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("class", function(d, i) { return "bubble id-" + i})
-    .attr("cx", function(d) { 
-      return x(d.income)
-    })
-    .attr("cy", function(d) {
-      return y(d.health)
-    })
-    .attr("r", function(d) {
-      return radius(d.population)
-    })
-    .style("fill", function(d) {
-      return color(d.group)
-    })
-  
-  svg.append("circle")
-    .style("pointer-events", "none")
-    .attr("class", "hover")
-    .attr("fill", "none")
-    .attr("transform", "translate(-100,-100)")
-
-  var voronoi = d3.voronoi()
-    .x(function(d) { return x(d.income); })
-    .y(function(d) { return y(d.health); })
-    .extent([[0, 0], [width, height]]);
-
-  var voronoiGroup = svg.append("g")
-    .attr("class", "voronoi")
-
-  voronoiGroup.selectAll("path")
-    .data(voronoi.polygons(data))
-    .enter()
-    .append("path")
-    .attr("d", function(d, i) { return "M" + d.join("L") + "Z"; })
-    .style("fill", "none")
-    .style("pointer-events", "all")
-    .on("mousemove", function(d, i) {
-      d3.selectAll(".bubble.id-" + i).attr("stroke", "none")
-
-      d3.selectAll(".hover")
-        .attr("stroke", "#111")
-        .attr("stroke-width", 1.5)
-        .attr("cx", x(d.data.income))
-        .attr("cy", y(d.data.health))
-        .attr("r", radius(d.data.population))
-        .attr("transform", "translate(0,0)")
-
-      tooltip.html(d.data.country)
-        .style("opacity", 1)
-        .style("left", x(d.data.income) + 15 + "px")
-        .style("top", (y(d.data.health) - radius(d.data.population)) + 15 + "px")
-    })
-    .on("mouseout",  function(d) {
-      d3.select(".hover").attr("stroke", "none")
-      
-      tooltip.style("opacity", 0)
-    })
-})
-
-function type (d) {
-  d.income = +d.income
-  d.health = +d.health
-  d.population = +d.population
-
-  return d
-}
-</script>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sequences sunburst</title>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
+    <link rel="stylesheet" type="text/css" href="sequences.css"/>
+  </head>
+  <body>
+    <div id="main">
+      <div id="sequence"></div>
+      <div id="chart">
+        <div id="explanation" style="visibility: hidden;">
+          <span id="percentage"></span><br/>
+          of visits begin with this sequence of pages
+        </div>
+      </div>
+    </div>
+    <div id="sidebar">
+      <input type="checkbox" id="togglelegend"> Legend<br/>
+      <div id="legend" style="visibility: hidden;"></div>
+    </div>
+    <script type="text/javascript" src="sequences.js"></script>
+    <script type="text/javascript">
+      // Hack to make this example display correctly in an iframe on bl.ocks.org
+      d3.select(self.frameElement).style("height", "700px");
+  </script> 
+  </body>
+</html>
