@@ -67,7 +67,7 @@
 			};
 
 			//Load the data and Call function to draw the Radar chart
-			d3.json("data.json", function(error, data){
+			d3.json("spotifyPlaylist.csv", function(error, data){
 				RadarChart(".radarChart", data, radarChartOptions);
 			});
 			
