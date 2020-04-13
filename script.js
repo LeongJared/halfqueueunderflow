@@ -41,7 +41,7 @@ var myColor = d3.scaleLinear()
   .domain([1,100])
 
 //Read the data
-d3.json("https://raw.githubusercontent.com/Kmooyang/halfqueueunderflow/master/Musicfrom2010s%20%E2%80%93%202.csv.json, function(data) {
+d3.json("https://raw.githubusercontent.com/Kmooyang/halfqueueunderflow/master/Musicfrom2010s%20%E2%80%93%202.csv.json", function(data) {
 
   // create a tooltip
   var tooltip = d3.select("#my_dataviz")
