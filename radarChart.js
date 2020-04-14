@@ -205,7 +205,7 @@ function RadarChart(id, data, options) {
 			//Bring back the hovered over blob
 			d3.select(this)
 				.transition().duration(200)
-				.style("fill-opacity", 0.8);	
+				.style("fill-opacity", 0.7);	
 		})
 		.on('mouseout', function(){
 			//Bring back all blobs
