@@ -274,7 +274,7 @@ function RadarChart(id, data, options) {
 	var tooltip = g.append("text")
 		.attr("class", "tooltip")
 		.style("opacity", 1)
-		.style("font-size", "15px");
+		.style("font-size", "20px");
 	
 	/////////////////////////////////////////////////////////
 	/////////////////// Helper Functions ////////////////////
