@@ -315,7 +315,7 @@ function RadarChart(id, data, options) {
 				.transition().duration(200)
 				.style("fill-opacity", 0.1); 
 			//Bring back the hovered over blob
-			d3.select("." + data[d][0][areaName].replace(/\s+/g, ''))
+			d3.select(".radarArea " + data[d][0][areaName].replace(/\s+/g, ''))
 				.transition().duration(200)
 				.style("fill-opacity", 0.65);
 	}
