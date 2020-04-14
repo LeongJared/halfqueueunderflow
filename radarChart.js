@@ -68,7 +68,7 @@ function RadarChart(id, data, options) {
 		
 	var allAxis = (data[0].map(function(d, i){ return d[axisName] })),	//Names of each axis
 		total = allAxis.length,					//The number of different axes
-		radius = Math.min(cfg.w/2, cfg.h/2), 			//Radius of the outermost circle
+		radius = 100//Math.min(cfg.w/2, cfg.h/2), 			//Radius of the outermost circle
 		Format = d3.format('%'),			 	//Percentage formatting
 		angleSlice = Math.PI * 2 / total;			//The width in radians of each "slice"
 
