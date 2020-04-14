@@ -31,39 +31,46 @@
 	
 	</head>
 	<body>
-		<input type="checkbox" id="myCheckbox"> Only Even
-		<div id="content"></div>
-		<script>		
-			d3.json("spotifyHits.json", function(error, data);
-			table = d3.select("#content")
-					.append("table")
-					.property("border","1px");
-			d3.select("#myCheckbox").on("change",update);
-			update();
-			
-			
-			function update(){
-				if(d3.select("#myCheckbox").property("checked")){
-					newData = data.filter(function(d,i){return d % 2 == 0;});
-				} else {
-					newData = data;			
-				}	
-				
-				newRows = table.selectAll("tr")
-						.data(newData,function(d){return d;});
-				newRows.enter()
-					.append("tr")
-					.append("td")
-					.text(function(d){return d;});		
-				newRows.exit()
-					.remove();			
-			}
-		</script>
-		
-		<div class="radarChart"></div>
+		<input type="checkbox" class="myCheckbox" value="2010"> 2010
+	    	<input type="checkbox" class="myCheckbox" value="2000"> 2000
+	    	<input type="checkbox" class="myCheckbox" value="1990"> 1990
+	    	<input type="checkbox" class="myCheckbox" value="1980"> 1980
+	    	<input type="checkbox" class="myCheckbox" value="1970"> 1970
+	    	<input type="checkbox" class="myCheckbox" value="1960"> 1960
 
-		<script src="radarChart.js"></script>	
-		<script>
+	   	 <div id="content"></div>
+	   	 <script> 
+
+
+	      	 function update(){
+			var choices = [];
+			d3.selectAll(".myCheckbox").each(function(d){
+		 	 	cb = d3.select(this);
+		  		if(cb.property("checked")){
+		    			choices.push(cb.property("value"));
+		  		}
+			});
+
+			if(choices.length > 0){
+			  newData = data.filter(function(d,i){return choices.includes(d);});
+			} else {
+			  newData = data;     
+			} 
+
+			newRows = table.selectAll("tr")
+			    .data(newData,function(d){return d;});
+			newRows.enter()
+			  .append("tr")
+			  .append("td")
+			  .text(function(d){return d;});    
+			newRows.exit()
+			  .remove();      
+	  	        }
+		
+			<div class="radarChart"></div>
+
+			<script src="radarChart.js"></script>	
+			<script>
 			////////////////////////////////////////////////////////////// 
 			//////////////////////// Set-Up ////////////////////////////// 
 			////////////////////////////////////////////////////////////// 
@@ -97,6 +104,11 @@
 
 			//Load the data and Call function to draw the Radar chart
 			d3.json("spotifyHits.json", function(error, data){
+				table = d3.select("#content")
+					.append("table")
+					.property("border","1px");
+			 	d3.selectAll(".myCheckbox").on("change",update);
+				 update();
 				RadarChart(".radarChart", data, radarChartOptions);
 			});
 			
