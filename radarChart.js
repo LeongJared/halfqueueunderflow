@@ -131,7 +131,7 @@ function RadarChart(id, data, options) {
 	   .attr("x", 4)
 	   .attr("y", function(d){return -d*radius/cfg.levels;})
 	   .attr("dy", "0.4em")
-	   .style("font-size", "10px")
+	   .style("font-size", "15px")
 	   .attr("fill", "#737373")
 	   .text(function(d,i) { return Format(maxValue * d/cfg.levels); });
 
@@ -158,7 +158,7 @@ function RadarChart(id, data, options) {
 	//Append the labels at each axis
 	axis.append("text")
 		.attr("class", "legend")
-		.style("font-size", "11px")
+		.style("font-size", "15px")
 		.attr("text-anchor", "middle")
 		.attr("dy", "0.35em")
 		.attr("x", function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.cos(angleSlice*i - Math.PI/2); })
@@ -205,7 +205,7 @@ function RadarChart(id, data, options) {
 			//Bring back the hovered over blob
 			d3.select(this)
 				.transition().duration(200)
-				.style("fill-opacity", 0.7);	
+				.style("fill-opacity", 1);	
 		})
 		.on('mouseout', function(){
 			//Bring back all blobs
@@ -232,7 +232,7 @@ function RadarChart(id, data, options) {
 		.attr("cx", function(d,i){ return rScale(d[value]) * Math.cos(angleSlice*i - Math.PI/2); })
 		.attr("cy", function(d,i){ return rScale(d[value]) * Math.sin(angleSlice*i - Math.PI/2); })
 		.style("fill", function(d,i,j) { return cfg.color(j); })
-		.style("fill-opacity", 0.8);
+		.style("fill-opacity", 1);
 
 	/////////////////////////////////////////////////////////
 	//////// Append invisible circles for tooltip ///////////
@@ -273,7 +273,7 @@ function RadarChart(id, data, options) {
 	//Set up the small tooltip for when you hover over a circle
 	var tooltip = g.append("text")
 		.attr("class", "tooltip")
-		.style("opacity", 0);
+		.style("opacity", 1);
 	
 	/////////////////////////////////////////////////////////
 	/////////////////// Helper Functions ////////////////////
