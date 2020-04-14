@@ -311,11 +311,11 @@ function RadarChart(id, data, options) {
 	// on mouseover for the legend symbol
 	function cellover(d) {
 			//Dim all blobs
-			//d3.selectAll(".radarArea")
-				//.transition().duration(200)
-				//.style("fill-opacity", 0.1); 
+			d3.selectAll(".radarArea")
+				.transition().duration(200)
+				.style("fill-opacity", 0.1); 
 			//Bring back the hovered over blob
-			d3.select("." + data[d][0][areaName].replace(/\s+/g, ''))
+			d3.select("." + data[0][d][areaName].replace(/\s+/g, ''))
 				.transition().duration(200)
 				.style("fill-opacity", 0.7);
 	}
@@ -344,7 +344,7 @@ function RadarChart(id, data, options) {
   	.shapePadding(10)
   	.scale(cfg.color)
   	.labels(cfg.color.domain().map(function(d){
-  		return data[d][0][areaName];
+  		return data[0][d][areaName];
   	}))
   	.on("cellover", function(d){ cellover(d); })
   	.on("cellout", function(d) { cellout(); });
