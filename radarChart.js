@@ -273,7 +273,8 @@ function RadarChart(id, data, options) {
 	//Set up the small tooltip for when you hover over a circle
 	var tooltip = g.append("text")
 		.attr("class", "tooltip")
-		.style("opacity", 1);
+		.style("opacity", 1)
+		.style("font-size", "15px");
 	
 	/////////////////////////////////////////////////////////
 	/////////////////// Helper Functions ////////////////////
@@ -312,11 +313,11 @@ function RadarChart(id, data, options) {
 			//Dim all blobs
 			d3.selectAll(".radarArea")
 				.transition().duration(200)
-				.style("fill-opacity", 0.1); 
+				.style("fill-opacity", 0); 
 			//Bring back the hovered over blob
 			d3.select("." + data[d][0][areaName].replace(/\s+/g, ''))
 				.transition().duration(200)
-				.style("fill-opacity", 0.7);	
+				.style("fill-opacity", 1);	
 	}
 
 	// on mouseout for the legend symbol
